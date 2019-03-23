@@ -14,5 +14,5 @@ readline_object.on("close", ContestResponse);
 
 
 function ContestResponse(){
-	console.log('hello');
+	console.log(input);
 }
