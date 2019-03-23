@@ -51,8 +51,6 @@ do
         setDefaultColor
         echo -e "\tYOU:\t\t$(cat $outputPath)"
         echo -e "\tEXPECTED:\t$(cat $TMP_OUTPUT_PATH)"
-        # echo -e "\tYOURS\tEXPECTED"
-        # echo -e "\t$(cat $outputPath)\t $(cat $TMP_OUTPUT_PATH)"
     fi
 
     counter=$((counter+1))
