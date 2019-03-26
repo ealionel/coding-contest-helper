@@ -5,7 +5,7 @@ const readline_object = readline.createInterface({
     output: process.stdout,
 })
 
-let input = [];
+let input = ['123'];
 
 readline_object.on("line", (value) => {
 	input.push(value);
