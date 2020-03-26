@@ -1,10 +1,10 @@
 #!/bin/bash
 
-script=$1
+start_program_cmd=$1
 inputFolder=$2
 
-inputList=$(ls $inputFolder/input*[0-9].txt)
-outputList=($(ls $inputFolder/output*[0-9].txt))
+inputList=$(ls ${inputFolder}/input*[0-9].txt)
+outputList=($(ls ${inputFolder}/output*[0-9].txt))
 
 
 getTime() {
@@ -24,23 +24,23 @@ setRed() {
 }
 
 
-TMP_OUTPUT_PATH="tmp/tmp_output"
+TMP_OUTPUT_PATH="/tmp/coding_challenge_watcher/"
+TMP_OUTPUT_FILE=${TMP_OUTPUT_PATH}/tmp_file
+mkdir -p ${TMP_OUTPUT_PATH}
 
 counter=1
-mkdir -p tmp
 for inputFile in $inputList
 do
-
-    outputPath=tmp/output${counter}.txt
+    outputPath=${TMP_OUTPUT_PATH}/output${counter}.txt
 
     START_TIME=$(getTime)
-    node $script < $inputFile > $outputPath
+    ${start_program_cmd} < $inputFile > $outputPath
     END_TIME=$(getTime)
 
     timeElapsed=$(($END_TIME - $START_TIME))
 
-    sed -e '$a\'  ${outputList[$((counter - 1))]} > $TMP_OUTPUT_PATH
-    if [ -z "$(diff $TMP_OUTPUT_PATH $outputPath)" ]
+    sed -e '$a\'  ${outputList[$((counter - 1))]} > ${TMP_OUTPUT_FILE}
+    if [ -z "$(diff $TMP_OUTPUT_FILE $outputPath)" ]
     then
         setGreen
         echo -e "✓ Test #$counter (${timeElapsed} ms) "
@@ -50,10 +50,10 @@ do
         echo "✗ Test #$counter"
         setDefaultColor
         echo -e "\tYOU:\t\t$(cat $outputPath)"
-        echo -e "\tEXPECTED:\t$(cat $TMP_OUTPUT_PATH)"
+        echo -e "\tEXPECTED:\t$(cat $TMP_OUTPUT_FILE)"
     fi
 
     counter=$((counter+1))
 done
 
-rm $TMP_OUTPUT_PATH
+rm -r $TMP_OUTPUT_PATH
