@@ -30,3 +30,5 @@ So for example
 ```
 ./watcher.sh sub.js "node sub.js" tests
 ```
+
+![Visual example](https://i.imgur.com/Mopj1zE.png)
